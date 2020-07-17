@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: jie.niu
+ * @Date: 2020-07-17 16:56:25
+ * @LastEditors: jie.niu
+ * @LastEditTime: 2020-07-17 17:11:28
+ */ 
 import Vue from 'vue'
 // import VueRouter from 'vue-router'
 import VueRouter from '../vuerouter'
@@ -22,7 +30,7 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

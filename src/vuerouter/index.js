@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: jie.niu
+ * @Date: 2020-07-17 16:56:25
+ * @LastEditors: jie.niu
+ * @LastEditTime: 2020-07-17 17:24:48
+ */ 
 let _Vue = null
 export default class VueRouter {
     static install (Vue) {
@@ -59,7 +67,12 @@ export default class VueRouter {
             },
             methods: {
                 clickHandler(e) {
-                    history.pushState({}, '', this.to)
+                    console.log('clickhandler--->', this.to)
+                    if(this.$router.options.mode == 'history') {
+                        history.pushState({}, '', this.to)
+                    }else {
+                        window.location.hash = this.to
+                    }
                     this.$router.data.current = this.to
                     e.preventDefault()
                 }
@@ -78,8 +91,15 @@ export default class VueRouter {
     }
 
     initEvent() {
-        window.addEventListener('popstate', () => {
-            this.data.current = window.location.pathname
-        })
+        if(this.options.mode == 'history') {
+            window.addEventListener('popstate', () => {
+                this.data.current = window.location.pathname
+            })
+        }else {
+            window.addEventListener('hashchange', () => {
+                console.log('hashchange--->', window.location.hash.substr(1))
+                this.data.current = window.location.hash.substr(1)
+            })
+        }
     }
 }
